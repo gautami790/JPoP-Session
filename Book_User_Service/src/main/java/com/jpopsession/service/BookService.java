@@ -1,0 +1,41 @@
+package com.jpopsession.service;
+
+import com.jpopsession.dao.BookRepository;
+import com.jpopsession.model.Book;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+public class BookService {
+
+    @Autowired
+    private BookRepository bookRepository;
+
+    public Book createBook(Book book) {
+        return bookRepository.save(book);
+    }
+
+    public Book getBookById(int id){
+        return bookRepository.findOne(id);
+    }
+
+    public List<Book> getBooks() {
+        return bookRepository.findAll();
+    }
+
+    public Book updateBook(Book book){
+        Book oldBook = bookRepository.findOne(book.getId());
+        oldBook.setName(book.getName());
+        oldBook.setAuthor(book.getAuthor());
+        oldBook.setCatagory(book.getCatagory());
+        oldBook.setDescription(book.getDescription());
+        bookRepository.save(oldBook);
+        return oldBook;
+    }
+
+    public String deleteBookById(int id){
+        bookRepository.delete(id);
+        return "Book got deleted";
+    }
+
+}
