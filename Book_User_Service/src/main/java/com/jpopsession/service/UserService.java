@@ -18,7 +18,7 @@ public class UserService {
     }
 
     public User getUserById(int id){
-        return userRepository.findOne(id);
+        return userRepository.findById(id).orElse(null);
     }
 
     public List<User> getUsers() {
@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public User updateUser(User user){
-       User olduser = userRepository.findOne(user.getId());
+       User olduser = userRepository.findById(user.getId()).orElse(null);
        olduser.setName(user.getName());
        olduser.setAddress(user.getAddress() );
        userRepository.save(olduser);
@@ -34,7 +34,7 @@ public class UserService {
     }
 
     public String deleteUserById(int id){
-        userRepository.delete(id);
+        userRepository.deleteById(id);
         return "User got deleted";
     }
 }
