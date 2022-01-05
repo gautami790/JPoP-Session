@@ -8,7 +8,7 @@ public class Consumer {
 
     @KafkaListener(topics = "JpopTopic", groupId="myGroup")
     public void consumerFromTopic(String message){
-
+        System.out.println("Consuming"+ message);
     }
 
 }
